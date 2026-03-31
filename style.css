@@ -1,0 +1,544 @@
+:root {
+    --primary-color: #2b2b2b;
+    --accent-color: #3e1a0b;
+    /* Soft gold/blush */
+    --light-bg: #f9f8fa;
+    --font-heading: 'Playfair Display', serif;
+    --font-serif: 'Cormorant Garamond', serif;
+    --font-sans: 'Montserrat', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-serif);
+    color: var(--primary-color);
+    background-color: var(--light-bg);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* --- COVER SECTION --- */
+.cover-section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #5c0811;
+    background-image: url('bg.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    overflow: hidden;
+    transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 1.2s ease;
+}
+
+.cover-section.slide-up .cover-content {
+    opacity: 0;
+    transform: scale(0.8);
+    transition: 0.8s ease-out;
+}
+
+/* Add an elegant overlay so text is readable */
+.cover-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    /* Subtle dark flush to let red pop */
+    z-index: 1;
+}
+
+.cover-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    background: transparent;
+    padding: 20px;
+    max-width: 90%;
+    animation: fadeInDown 2s ease-out forwards;
+}
+
+/* Corner Decorations removed to place text directly on BG */
+.cover-content::before,
+.cover-content::after {
+    display: none;
+}
+
+.cover-content h3.date {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-style: italic;
+    font-size: 3rem;
+    color: #FFD700;
+    /* Classic Gold */
+    margin-bottom: 5px;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 10px rgba(58, 0, 0, 1);
+}
+
+.cover-content .location {
+    font-family: var(--font-sans);
+    font-size: 1.1rem;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #FFFDD0;
+    /* Soft Cream */
+    margin-bottom: 40px;
+    text-shadow: 1px 1px 5px rgba(58, 0, 0, 1);
+}
+
+.open-btn {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 16px 45px;
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 15px rgba(199, 164, 133, 0.4);
+}
+
+.open-btn:hover {
+    background-color: #b59273;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(199, 164, 133, 0.6);
+}
+
+/* Animations for transitioning out */
+.cover-section.slide-up {
+    transform: translateY(-100vh) scale(0.95);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* --- MAIN INVITE SECTION --- */
+.invite-section {
+    height: 100vh;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #5c0811 url('bg2.png') no-repeat center center fixed;
+    background-size: 100% 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.invite-section::before {
+    display: none;
+}
+
+.invite-wrapper {
+    position: relative;
+    z-index: 10;
+    background: transparent;
+    max-width: 900px;
+    width: 100%;
+    padding: 20px 10px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    /* Tighter gap to prevent overlaps */
+    height: 100%;
+}
+
+.invite-section.visible .invite-wrapper {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.ganesha-header {
+    margin: 0;
+    color: #ffd54f;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.ganesha-icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.ganesha-header p {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.couple-names {
+    font-family: 'Great Vibes', cursive;
+    font-size: 6.5rem;
+    font-weight: 400;
+    line-height: 1.2;
+    margin: 0;
+    color: #FFD700;
+    /* Classic Gold */
+    text-shadow: 4px 4px 12px rgba(58, 0, 0, 1);
+    /* Deep Maroon shadow for better blend */
+}
+
+.couple-names span {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 4rem;
+    color: #FFFDD0;
+    /* Soft Cream */
+}
+
+/* Blessings text visibility restored */
+.blessings-text {
+    display: block;
+}
+
+/* Content visibility restored */
+.poetic-intro {
+    display: block;
+}
+
+.wedding-info,
+.venue-info {
+    margin: 0;
+    color: #ffffff;
+    text-shadow: 3px 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.wedding-info h3,
+.venue-info h3 {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #ffd54f;
+    margin-bottom: 8px;
+    border-bottom: 2px solid rgba(255, 213, 79, 0.4);
+    display: inline-block;
+    padding-bottom: 4px;
+}
+
+.wedding-info p.wedding-date {
+    font-size: 2.1rem;
+    color: #FFD700;
+    /* Classic Gold */
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 1px;
+    text-shadow: 4px 4px 8px rgba(58, 0, 0, 1);
+    line-height: 1.2;
+}
+
+.wedding-info p.wedding-time {
+    font-size: 1.5rem;
+    margin-top: 5px;
+    color: #FFFDD0;
+    /* Soft Cream */
+    line-height: 1.2;
+}
+
+.venue-info .venue-name {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #FFD700;
+    /* Classic Gold */
+    margin: 5px 0;
+    text-shadow: 2px 2px 8px rgba(58, 0, 0, 1);
+}
+
+.venue-info .venue-description {
+    font-style: italic;
+    font-size: 1.3rem; 
+    opacity: 0.95;
+    color: #FFFDD0; /* Soft Cream for better contrast */
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+}
+
+.occasions-list {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.occasion-item {
+    font-size: 1.3rem;
+    color: #ffffff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 1);
+    flex: 1;
+    min-width: 140px;
+    line-height: 1.5;
+    padding: 15px;
+}
+
+.occasion-date {
+    display: inline-block;
+    font-weight: 700;
+    color: #ffd54f;
+    font-size: 1.4rem;
+    margin: 8px 0;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 1);
+    border-bottom: 2px solid rgba(255, 213, 79, 0.4);
+}
+
+.occasion-item strong {
+    color: #ffd54f;
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.closing-text {
+    font-size: 1.5rem;
+    color: #FFFDD0;
+    /* Soft Cream */
+    font-style: italic;
+    line-height: 1.4;
+    text-shadow: 2px 2px 6px rgba(58, 0, 0, 1);
+    margin: 0;
+}
+
+.rsvp-section {
+    padding-top: 40px;
+    border-top: 1px dashed #ddd;
+}
+
+.rsvp-section h3 {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-style: italic;
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+.rsvp-section p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.rsvp-btn {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 14px 40px;
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: 40px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.rsvp-btn:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+/* --- SPECIAL EFFECTS --- */
+.petals-container {
+    position: fixed;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 20;
+    overflow: hidden;
+}
+
+.petal {
+    position: absolute;
+    background: #ff4081;
+    /* Default pink petal color */
+    border-radius: 50% 0 50% 0;
+    opacity: 0.6;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0) translateX(0);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(720deg) translateX(100px);
+        opacity: 0;
+    }
+}
+
+.diya-container {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    pointer-events: none;
+    z-index: 15;
+}
+
+.diya {
+    position: relative;
+    width: 80px;
+    height: 40px;
+}
+
+.diya-body {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #d35400, #a04000);
+    border-radius: 0 0 100px 100px;
+    position: relative;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.4), 0 5px 15px rgba(0,0,0,0.5);
+}
+
+.diya-body::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110%;
+    height: 10px;
+    background: #e67e22;
+    border-radius: 50%;
+}
+
+.flame-container {
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 40px;
+}
+
+.flame {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 80%, #ffffff 0%, #ffd700 30%, #ff8c00 60%, transparent 80%);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    filter: blur(1px);
+    animation: flame-flicker 0.1s infinite alternate;
+    box-shadow: 0 0 20px #ff8c00, 0 0 40px rgba(255, 140, 0, 0.5);
+}
+
+@keyframes flame-flicker {
+    0% { transform: scale(1) rotate(-1deg); opacity: 0.9; }
+    100% { transform: scale(1.1) rotate(1deg); opacity: 1; }
+}
+
+/* Re-adding a subtle ambient glow around the diyas */
+.diya-container::before, .diya-container::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    width: 200px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(255, 200, 50, 0.3) 0%, transparent 70%);
+    z-index: -1;
+}
+
+.diya-container::before { left: -20px; }
+.diya-container::after { right: -20px; }
+
+/* Responsive Overrides for Mobile */
+@media (max-width: 768px) {
+    .invite-wrapper {
+        gap: 12px;
+        /* Tighter for phones */
+        padding: 10px;
+    }
+
+    .ganesha-icon {
+        font-size: 1.2rem;
+    }
+
+    .couple-names {
+        font-size: 4.2rem;
+    }
+
+    .couple-names span {
+        font-size: 2rem;
+    }
+
+    .wedding-info h3,
+    .venue-info h3 {
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+    }
+
+    .wedding-info p.wedding-date {
+        font-size: 1.6rem;
+    }
+
+    .wedding-info p.wedding-time {
+        font-size: 1.1rem;
+    }
+
+    .venue-info .venue-name {
+        font-size: 1.6rem;
+    }
+
+    .occasions-list {
+        gap: 8px;
+    }
+
+    .occasion-item {
+        min-width: 90px;
+        font-size: 0.9rem;
+        padding: 5px;
+    }
+
+    .occasion-item strong {
+        font-size: 1.1rem;
+    }
+
+    .occasion-date {
+        font-size: 1rem;
+    }
+
+    .closing-text {
+        font-size: 1.1rem;
+    }
+}

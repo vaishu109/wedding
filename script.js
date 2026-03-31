@@ -1,0 +1,76 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const openBtn = document.getElementById('open-btn');
+    const coverSection = document.getElementById('cover');
+    const inviteSection = document.getElementById('invite');
+    const bgMusic = document.getElementById('bg-music');
+
+    // Attempt automatic playback
+    const playMusic = () => {
+        bgMusic.play().then(() => {
+            // If successful, we can remove the global click listener
+            document.removeEventListener('click', playMusic);
+        }).catch(e => {
+            console.log('Autoplay blocked. Will attempt on interaction.', e);
+        });
+    };
+
+    // Try immediately
+    playMusic();
+
+    // Also listen for any click on the document to start it
+    document.addEventListener('click', playMusic);
+
+    const petalsContainer = document.getElementById('petals-container');
+
+    function createPetal() {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+        
+        // Randomize petal properties
+        const size = Math.random() * 20 + 10;
+        petal.style.width = `${size}px`;
+        petal.style.height = `${size}px`;
+        petal.style.left = `${Math.random() * 100}vw`;
+        
+        // Use traditional Bengali wedding flower colors (yellow, orange, reddish-pink)
+        const colors = ['#f44336', '#ff9800', '#ffeb3b', '#e91e63'];
+        petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Randomize animation timing
+        const duration = Math.random() * 3 + 2;
+        petal.style.animationDuration = `${duration}s`;
+        
+        petalsContainer.appendChild(petal);
+        
+        // Clean up petal after animation
+        setTimeout(() => {
+            petal.remove();
+        }, duration * 1000);
+    }
+
+    openBtn.addEventListener('click', () => {
+        // Start background music
+        bgMusic.play().catch(e => console.log('Audio playback prevented:', e));
+
+
+        // Start Petals
+        setInterval(createPetal, 300);
+
+        // Slide up the entire cover
+        coverSection.classList.add('slide-up');
+        
+        // Remove hidden class from invite for DOM layout
+        inviteSection.classList.remove('hidden');
+        
+        // Fade in invitation content
+        setTimeout(() => {
+            inviteSection.classList.add('visible');
+            window.scrollTo(0, 0);
+        }, 500); 
+        
+        // Remove cover from flow after animation completes
+        setTimeout(() => {
+            coverSection.style.display = 'none';
+        }, 1200);
+    });
+});
