@@ -92,9 +92,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showSlide(index) {
-        if (index < 0) currentSlide = slides.length - 1;
-        else if (index >= slides.length) currentSlide = 0;
-        else currentSlide = index;
+        if (index < 0) {
+            currentSlide = 0;
+        } else if (index >= slides.length) {
+            currentSlide = slides.length - 1;
+            if (slideInterval) clearInterval(slideInterval); // Stop when reaching the end
+        } else {
+            currentSlide = index;
+        }
 
         slides.forEach((slide, i) => {
             slide.classList.remove('active', 'past', 'future');
