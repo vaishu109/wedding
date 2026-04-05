@@ -226,8 +226,33 @@ body {
     border: 4px solid gold;
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
-    animation: floatingGanesha 4s ease-in-out infinite;
-    transform: translateZ(60px); /* Extends 3D pop effect further! */
+    transform: translateZ(60px); /* 3D Pop effect */
+    
+    /* Formation Animation when slide is active */
+    opacity: 0;
+    filter: blur(20px);
+}
+
+.active .ganesha-img {
+    animation: imageFormation 1.5s cubic-bezier(0.2, 0.4, 0.3, 1) forwards, 
+               floatingGanesha 4s ease-in-out infinite 1.5s; /* Float starts after formation */
+}
+
+@keyframes imageFormation {
+    0% {
+        opacity: 0;
+        filter: blur(20px) contrast(2);
+        transform: translateZ(60px) scale(0.6) rotateX(20deg);
+        mask-image: radial-gradient(circle, black 0%, transparent 0%);
+        -webkit-mask-image: radial-gradient(circle, black 0%, transparent 0%);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0px) contrast(1);
+        transform: translateZ(60px) scale(1) rotateX(0deg);
+        mask-image: radial-gradient(circle, black 100%, transparent 100%);
+        -webkit-mask-image: radial-gradient(circle, black 100%, transparent 100%);
+    }
 }
 
 @keyframes floatingGanesha {
