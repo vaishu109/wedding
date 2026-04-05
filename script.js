@@ -92,11 +92,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showSlide(index) {
+        if (index >= slides.length) {
+            if (slideInterval) clearInterval(slideInterval);
+            return; // Exit early so we don't re-apply the active classes and trigger transitions
+        }
+        
         if (index < 0) {
             currentSlide = 0;
-        } else if (index >= slides.length) {
-            currentSlide = slides.length - 1;
-            if (slideInterval) clearInterval(slideInterval); // Stop when reaching the end
         } else {
             currentSlide = index;
         }
