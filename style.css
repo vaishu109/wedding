@@ -234,29 +234,33 @@ body {
 }
 
 .active .ganesha-img {
-    animation: imageFormation 1.5s cubic-bezier(0.2, 0.4, 0.3, 1) forwards, 
-               floatingGanesha 4s ease-in-out infinite 1.5s; /* Float starts after formation */
+    animation: imageFormation 1.8s cubic-bezier(0.2, 0.4, 0.3, 1) forwards;
+}
+
+/* Floating starts only AFTER formation on a separate transform layer */
+.active .ganesha-header {
+    animation: floatingGanesha 4s ease-in-out infinite 1.8s;
 }
 
 @keyframes imageFormation {
     0% {
         opacity: 0;
-        filter: blur(20px) contrast(2);
-        transform: translateZ(60px) scale(0.4) rotateX(30deg);
+        filter: blur(25px) contrast(2);
+        transform: scale(0.3) rotateX(45deg);
         clip-path: circle(0% at 50% 50%);
     }
     100% {
         opacity: 1;
         filter: blur(0px) contrast(1);
-        transform: translateZ(60px) scale(1) rotateX(0deg);
+        transform: scale(1) rotateX(0deg);
         clip-path: circle(100% at 50% 50%);
     }
 }
 
 @keyframes floatingGanesha {
-    0% { transform: translateY(0px) translateZ(60px) scale(1); }
-    50% { transform: translateY(-12px) translateZ(60px) scale(1.02); }
-    100% { transform: translateY(0px) translateZ(60px) scale(1); }
+    0% { transform: translateZ(50px) translateY(0px); }
+    50% { transform: translateZ(50px) translateY(-15px); }
+    100% { transform: translateZ(50px) translateY(0px); }
 }
 
 .couple-names span {
@@ -655,18 +659,47 @@ body {
     background: radial-gradient(circle at 50% 80%, #ffffff 0%, #ffd700 30%, #ff8c00 60%, transparent 80%);
     border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
     filter: blur(1px);
-    animation: flame-flicker 0.1s infinite alternate;
-    box-shadow: 0 0 20px #ff8c00, 0 0 40px rgba(255, 140, 0, 0.5);
+    animation: flame-flicker 0.15s infinite alternate;
+    box-shadow: 0 0 20px #ff8c00, 0 0 40px rgba(255, 140, 0, 0.4);
+}
+
+/* Atmospheric ambient light flicker */
+.flame::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(255, 140, 0, 0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(20px);
+    animation: light-pulse 2s infinite ease-in-out alternate, flicker-ambient 0.1s infinite;
+    z-index: -1;
+    pointer-events: none;
+}
+
+@keyframes light-pulse {
+    0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.1; }
+    100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.3; }
+}
+
+@keyframes flicker-ambient {
+    0% { opacity: 0.15; }
+    25% { opacity: 0.25; }
+    50% { opacity: 0.1; }
+    75% { opacity: 0.3; }
+    100% { opacity: 0.2; }
 }
 
 @keyframes flame-flicker {
     0% {
-        transform: scale(1) rotate(-1deg);
-        opacity: 0.9;
+        transform: scale(1) rotate(-1.5deg);
+        opacity: 0.85;
     }
-
     100% {
-        transform: scale(1.1) rotate(1deg);
+        transform: scale(1.15) rotate(1.5deg);
         opacity: 1;
     }
 }
