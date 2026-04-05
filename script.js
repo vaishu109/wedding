@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             inviteSection.classList.add('visible');
             window.scrollTo(0, 0);
+            startSlideshow(); // Auto-start the slideshow
         }, 500); 
         
         // Remove cover from flow after animation completes
@@ -73,4 +74,58 @@ document.addEventListener('DOMContentLoaded', () => {
             coverSection.style.display = 'none';
         }, 1200);
     });
+
+    // Slideshow functionality
+    const prevBtn = document.getElementById('prev-slide');
+    const nextBtn = document.getElementById('next-slide');
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    
+    let currentSlide = 0;
+    let slideInterval;
+
+    function startSlideshow() {
+        if(slideInterval) clearInterval(slideInterval);
+        slideInterval = setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 4500); // 4.5 seconds per slide
+    }
+
+    function showSlide(index) {
+        if (index < 0) currentSlide = slides.length - 1;
+        else if (index >= slides.length) currentSlide = 0;
+        else currentSlide = index;
+
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active', 'past', 'future');
+            if (dots[i]) dots[i].classList.remove('active');
+            
+            if (i === currentSlide) {
+                slide.classList.add('active');
+                if (dots[i]) dots[i].classList.add('active');
+            } else if (i < currentSlide) {
+                slide.classList.add('past');
+            } else {
+                slide.classList.add('future');
+            }
+        });
+    }
+
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+            showSlide(currentSlide - 1);
+            startSlideshow(); // Reset timer on manual click
+        });
+        nextBtn.addEventListener('click', () => {
+            showSlide(currentSlide + 1);
+            startSlideshow(); // Reset timer on manual click
+        });
+        
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                showSlide(index);
+                startSlideshow(); // Reset timer on manual click
+            });
+        });
+    }
 });
