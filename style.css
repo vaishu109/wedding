@@ -242,23 +242,21 @@ body {
     0% {
         opacity: 0;
         filter: blur(20px) contrast(2);
-        transform: translateZ(60px) scale(0.6) rotateX(20deg);
-        mask-image: radial-gradient(circle, black 0%, transparent 0%);
-        -webkit-mask-image: radial-gradient(circle, black 0%, transparent 0%);
+        transform: translateZ(60px) scale(0.4) rotateX(30deg);
+        clip-path: circle(0% at 50% 50%);
     }
     100% {
         opacity: 1;
         filter: blur(0px) contrast(1);
         transform: translateZ(60px) scale(1) rotateX(0deg);
-        mask-image: radial-gradient(circle, black 100%, transparent 100%);
-        -webkit-mask-image: radial-gradient(circle, black 100%, transparent 100%);
+        clip-path: circle(100% at 50% 50%);
     }
 }
 
 @keyframes floatingGanesha {
-    0% { transform: translateY(0px) translateZ(60px); }
-    50% { transform: translateY(-12px) translateZ(60px); }
-    100% { transform: translateY(0px) translateZ(60px); }
+    0% { transform: translateY(0px) translateZ(60px) scale(1); }
+    50% { transform: translateY(-12px) translateZ(60px) scale(1.02); }
+    100% { transform: translateY(0px) translateZ(60px) scale(1); }
 }
 
 .couple-names span {

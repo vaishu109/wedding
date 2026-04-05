@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             inviteSection.classList.add('visible');
             window.scrollTo(0, 0);
+            showSlide(0); // Manually show the first slide to trigger entrance animations
             startSlideshow(); // Auto-start the slideshow
         }, 500); 
         
